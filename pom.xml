@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <groupId>com.oklimenko.interview</groupId>
+    <artifactId>algo</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <checkstyle.version>7.8.2</checkstyle.version>
+        <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+        <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
+        <code-coverage.skip>false</code-coverage.skip>
+        <assertj-core.version>3.13.2</assertj-core.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons-text.version>1.7</commons-text.version>
+        <commons-io.version>2.6</commons-io.version>
+        <guava.version>28.0-jre</guava.version>
+        <sonar.version>3.7.0.1746</sonar.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.6.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
+        <!--Test-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.19.0</version>
+            <scope>test</scope>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.mockito</groupId>-->
+<!--            <artifactId>mockito-core</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>checkstyle/checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <failOnViolation>true</failOnViolation>
+                    <outputFileFormat>xml</outputFileFormat>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+
+            </plugin>
+
+            <plugin>
+
+                <groupId>org.jacoco</groupId>
+
+                <artifactId>jacoco-maven-plugin</artifactId>
+
+                <version>${jacoco-maven-plugin.version}</version>
+
+                <executions>
+
+                    <execution>
+
+                        <goals>
+
+                            <goal>prepare-agent</goal>
+
+                        </goals>
+
+                    </execution>
+
+                    <execution>
+
+                        <id>generate-code-coverage-report</id>
+
+                        <phase>test</phase>
+
+                        <goals>
+
+                            <goal>report</goal>
+
+                        </goals>
+
+                    </execution>
+
+                </executions>
+
+                <configuration>
+
+                    <skip>${code-coverage.skip}</skip>
+
+                </configuration>
+
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+<!--    <modules>-->
+<!--        <module>algo</module>-->
+<!--    </modules>-->
+</project>
