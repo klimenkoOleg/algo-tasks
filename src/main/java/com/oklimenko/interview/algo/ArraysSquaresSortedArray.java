@@ -1,7 +1,5 @@
 package com.oklimenko.interview.algo;
 
-import static oracle.jrockit.jfr.events.Bits.swap;
-
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
