@@ -1,7 +1,6 @@
-package com.oklimenko.interview.algo;
+package com.oklimenko.algo;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
 
 public class ArraysSquaresSortedArray {
     /*Input: nums = [-4,-1,0,3,10]

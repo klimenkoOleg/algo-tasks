@@ -1,12 +1,11 @@
-package com.oklimenko.interview.algo;
+package com.oklimenko.algo;
 
 import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
-import java.util.List;
 
 @UtilityClass
-public class StringUtils {
+public class StringUtils2 {
 
     boolean isAnagram(String inputA, String inputB) {
         char[] charsA = inputA.toUpperCase().toCharArray();
