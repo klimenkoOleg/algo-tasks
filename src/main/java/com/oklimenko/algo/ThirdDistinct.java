@@ -34,6 +34,7 @@ public class ThirdDistinct {
     }
 
 
+
     private int movePush(int[] max, int maxLen, int val) {
         for (int i = 0; i < maxLen; i++) {
             if (val == max[i]) {

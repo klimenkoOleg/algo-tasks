@@ -1,4 +1,4 @@
-package com.oklimenko.interview.algo;
+package com.oklimenko.algo;
 
 
 import org.junit.jupiter.api.Assertions;
