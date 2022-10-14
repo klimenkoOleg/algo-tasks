@@ -16,11 +16,8 @@ public class ReverseLinkedList {
     }
 
     public static void main(String[] args) {
-
-        int arr[] = {1, 2, 6, 3, 4, 5, 6};
-        int val = 6;
-
-
+        int arr[] = {1, 2, 3, 4, 5};
+//        int val = 6;
 //        int arr[] = {1, 2, 3, 4, 5};
 //        int arr[] = {};
 //    int []listB = {5,6,1,8,4,5};
@@ -29,8 +26,8 @@ public class ReverseLinkedList {
         for (int i = 0; i < arr.length; i++) {
             headA = addAtTail(headA, arr[i]);
         }
-
-        ListNode newHead = removeElements(headA, val);
+        ListNode newHead = oddEvenList(headA);
+//        ListNode newHead = removeElements(headA, val);
 //        ListNode newHead = reverseList(headA);
         while (newHead != null) {
             System.out.println(newHead.val);
@@ -54,11 +51,37 @@ public class ReverseLinkedList {
 
     public static List<Integer> listToArr(ListNode head) {
         ArrayList<Integer> list = new ArrayList<>();
-        while (head!=null) {
+        while (head != null) {
             list.add(head.val);
             head = head.next;
         }
         return list;
+    }
+
+    public static ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode prev1 = head;
+        ListNode prev2 = head.next;
+        ListNode savedNode = head.next;
+        ListNode lastNode = prev1;
+        while (prev1.next != null && prev2.next != null) {
+            if (prev1.next != null) {
+                ListNode tmp = prev1.next.next;
+                prev1.next = tmp;
+                prev1 = tmp;
+                lastNode = prev1;
+            }
+            if (prev2.next != null) {
+//                lastNode = prev2;
+                ListNode tmp = prev2.next.next;
+                prev2.next = tmp;
+                prev2 = tmp;
+            }
+        }
+        lastNode.next = savedNode;
+        return head;
     }
 
     public static ListNode reverseList(ListNode head) {
