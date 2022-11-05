@@ -1,6 +1,5 @@
 package com.oklimenko.algo.list;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class MyLinkedList {
@@ -240,25 +239,59 @@ public class MyLinkedList {
 //[[],[],[],[],[],[],[],[],[4],[4],[5,0],[6]]
     }
 
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        ListNode newHead = new ListNode(0);
+        ListNode newCurr = newHead;
+
+        ListNode curr1 = list1;
+        ListNode curr2 = list2;
+
+        while (curr1!=null || curr2!=null) {
+            if (curr2==null) {
+                newCurr.next = curr1;
+                newCurr = curr1;
+                curr1 = curr1.next;
+                continue;
+            }
+            if (curr1==null) {
+                newCurr.next = curr2;
+                newCurr = curr2;
+                curr2 = curr2.next;
+                continue;
+            }
+            if (curr1.val < curr2.val) {
+                newCurr.next = curr1;
+                newCurr = curr1;
+                curr1 = curr1.next;
+            } else {
+                newCurr.next = curr2;
+                newCurr = curr2;
+                curr2 = curr2.next;
+            }
+        }
+        return newHead.next;
+    }
+
     boolean isPrint = false;
 
-    class DoublyListNode {
+    class ListNode {
         int val;
-        DoublyListNode next, prev;
+        ListNode next, prev;
 
-        DoublyListNode(int x) {
+        ListNode(int x) {
             val = x;
         }
     }
 
-    private DoublyListNode head = null;
-    private DoublyListNode tail = null;
+    private ListNode head = null;
+    private ListNode tail = null;
 
     public MyLinkedList() {
     }
 
     public int get(int index) {
-        DoublyListNode curr = head;
+        ListNode curr = head;
         int n = 0;
         while (curr != null) {
             if (n == index) {
@@ -277,7 +310,7 @@ public class MyLinkedList {
     }
 
     public void addAtHead(int val) {
-        DoublyListNode newNode = new DoublyListNode(val);
+        ListNode newNode = new ListNode(val);
         if (head != null) {
             head.prev = newNode;
         }
@@ -293,7 +326,7 @@ public class MyLinkedList {
     }
 
     public void addAtTail(int val) {
-        DoublyListNode newNode = new DoublyListNode(val);
+        ListNode newNode = new ListNode(val);
         newNode.prev = tail;
 
         if (tail != null) {
@@ -319,12 +352,12 @@ public class MyLinkedList {
             }
             return;
         }
-        DoublyListNode curr = head;
+        ListNode curr = head;
         int n = 0;
         while (curr != null) {
             if (n == index) {
-                DoublyListNode newNode = new DoublyListNode(val);
-                DoublyListNode prev = curr.prev;
+                ListNode newNode = new ListNode(val);
+                ListNode prev = curr.prev;
                 newNode.next = curr;
                 newNode.prev = prev;
                 if (prev == null) {
@@ -352,12 +385,12 @@ public class MyLinkedList {
     }
 
     public void deleteAtIndex(int index) {
-        DoublyListNode curr = head;
+        ListNode curr = head;
         int n = 0;
         while (curr != null) {
             if (n == index) {
-                DoublyListNode prev = curr.prev;
-                DoublyListNode next = curr.next;
+                ListNode prev = curr.prev;
+                ListNode next = curr.next;
                 curr.prev = curr.next = null;
                 if (prev == null) {
                     head = next;
@@ -385,7 +418,7 @@ public class MyLinkedList {
     }
 
     public void print() {
-        DoublyListNode curr = head;
+        ListNode curr = head;
         while (curr != null) {
             System.out.print(curr.val + ",");
             curr = curr.next;
@@ -394,7 +427,7 @@ public class MyLinkedList {
     }
 
     public void printBk() {
-        DoublyListNode curr = tail;
+        ListNode curr = tail;
         while (curr != null) {
             System.out.print(curr.val + ",");
             curr = curr.prev;
