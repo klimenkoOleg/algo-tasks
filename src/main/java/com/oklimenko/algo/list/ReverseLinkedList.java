@@ -17,6 +17,7 @@ public class ReverseLinkedList {
 
     public static void main(String[] args) {
         int arr[] = {1, 2, 3, 4, 5};
+//        int arr[] = {1, 2, 2, 1};
 //        int val = 6;
 //        int arr[] = {1, 2, 3, 4, 5};
 //        int arr[] = {};
@@ -26,13 +27,39 @@ public class ReverseLinkedList {
         for (int i = 0; i < arr.length; i++) {
             headA = addAtTail(headA, arr[i]);
         }
-        ListNode newHead = oddEvenList(headA);
+
+        System.out.println(isPalindrome(headA));
+
+//        ListNode newHead = oddEvenList(headA);
 //        ListNode newHead = removeElements(headA, val);
 //        ListNode newHead = reverseList(headA);
-        while (newHead != null) {
-            System.out.println(newHead.val);
-            newHead = newHead.next;
+//        while (newHead != null) {
+//            System.out.println(newHead.val);
+//            newHead = newHead.next;
+//        }
+    }
+
+    public static boolean isPalindrome(ListNode head) {
+        ListNode curr = head;
+        int length = 0;
+        while (curr != null) {
+            length++;
+            curr = curr.next;
         }
+        int middle = length / 2 + length % 2;
+        ListNode middleNode = head;
+        for (int i = 0; i < middle; i++) {
+            middleNode = middleNode.next;
+        }
+        middleNode = reverseList(middleNode);
+        while (middleNode!=null && head!=null) {
+            if (head.val != middleNode.val) {
+                return false;
+            }
+            middleNode = middleNode.next;
+            head = head.next;
+        }
+        return true;
     }
 
     public static ListNode removeElements(ListNode head, int val) {
