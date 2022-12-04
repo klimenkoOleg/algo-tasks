@@ -4,13 +4,86 @@ import java.util.List;
 
 public class MyLinkedList {
 
+    static public MyLinkedList compose(Integer[] arr, int idx) {
+        MyLinkedList myLinkedList1 = new MyLinkedList();
 
+        while (idx < arr.length && arr[idx] != null) {
+            myLinkedList1.addAtTail(arr[idx]);
+            idx++;
+        }
+        int count = 0;
+        while (idx < arr.length && arr[idx] == null) {
+            count++;
+//            myLinkedList1.addAtTail(arr[idx]);
+            idx++;
+        }
+        if (idx < arr.length) {
+            MyLinkedList sublist = compose(arr, idx);
+            ListNode item = myLinkedList1.getItem(count-1);
+            if (item!=null) {
+                item.child = sublist.head;
+            }
+        }
+        return myLinkedList1;
+    }
+
+    static public ListNode flatten(ListNode head) {
+        ListNode curr = head;
+        while (curr != null) {
+            if (curr.child != null) {
+                ListNode flatHead = flatten( curr.child );
+                ListNode lastTail = flatHead;
+                while (lastTail.next != null) {
+                    lastTail.child = null;
+                    lastTail = lastTail.next;
+                }
+                if (curr.next != null) {
+                    curr.next.prev = lastTail;
+                }
+                lastTail.next = curr.next;
+                curr.child.prev = curr;
+                ListNode next = curr.next;
+                curr.next = curr.child;
+                curr = next;
+            } else {
+                curr = curr.next;
+            }
+        }
+        return head;
+    }
     public static void main(String[] args) {
+
+//        Integer arr[] = {1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12};
+        Integer arr[] = {1,2,null,3};
+//        Output: [1,2,3,7,8,11,12,9,10,4,5,6];
+
+//        MyLinkedList myLinkedList1 = new MyLinkedList();
+        MyLinkedList myLinkedList1 = compose(arr, 0);
+
+        ListNode result = flatten(myLinkedList1.head);
+
+        while (result.next!=null) {
+            System.out.println(result.val);
+            result = result.next;
+        }
+        System.out.println(result.val);
+
+        System.out.println("!!!");
+        while (result!=null) {
+            System.out.println(result.val);
+            result = result.prev;
+        }
+
+//        for (int i = 0; i < l1.length; i++) {
+//            myLinkedList1.addAtTail(l1[i]);
+//        }
+
+//        whil
 
 //        int l1[] = {0};//{2,4,3};
 //        int l2[] = {0};//{5,6,4};
 
-        int l1[] = {9,9,9,9,9,9,9};
+       /* int l1[] = {9,9,9,9,9,9,9};
         int l2[] = {9,9,9,9};
 //        [8,9,9,9,0,0,0,1]
 //        Output: [7,0,8]
@@ -30,7 +103,7 @@ public class MyLinkedList {
             System.out.print(curr.val + ",");
             curr = curr.next;
         }
-        System.out.println();
+        System.out.println();*/
 
 //        [null,null,null,null,-1,2,null,null,null,null,null,null,null,null,84,null,null,null,null,null,null,null,null,null,null,null,16,null,null,null,null,null,null,null,null,37,null,null,null,null,null,23,null,null,null,null,null,null,null,null,null,null,null,null,null,null,19,null,17,null,null,56,null,null,31,null,17,null,12,null,null,null,null,null,null,null,40,null,null,null,37,null,76,null,-1,null,null,null,null,null,null,80,null,null,null,null,43,null,null,null,-1,null]
 //        [null,null,null,null,-1,2,null,null,null,null,null,null,null,null,84,null,null,null,null,null,null,null,null,null,null,null,16,null,null,null,null,null,null,null,null,37,null,null,null,null,null,23,null,null,null,null,null,null,null,null,null,null,null,null,null,null,19,null,17,null,null,56,null,null,31,null,17,null,12,null,null,null,null,null,null,null,40,null,null,null,37,null,76,null,42,null,null,null,null,null,null,80,null,null,null,null,43,null,null,null,40,null]
@@ -334,7 +407,7 @@ public class MyLinkedList {
 
     static class ListNode {
         int val;
-        ListNode next, prev;
+        ListNode next, prev, child;
 
         ListNode(int x) {
             val = x;
@@ -364,6 +437,25 @@ public class MyLinkedList {
             System.out.println("GET!!! " + index + ": " + -1);
         }
         return -1;
+    }
+
+    public ListNode getItem(int index) {
+        ListNode curr = head;
+        int n = 0;
+        while (curr != null) {
+            if (n == index) {
+                if (isPrint) {
+                    System.out.println("GET!!! " + index + ": " + curr.val);
+                }
+                return curr;
+            }
+            curr = curr.next;
+            n++;
+        }
+        if (isPrint) {
+            System.out.println("GET!!! " + index + ": " + -1);
+        }
+        return null;
     }
 
     public void addAtHead(int val) {
