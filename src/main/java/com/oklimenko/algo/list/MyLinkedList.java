@@ -27,6 +27,29 @@ public class MyLinkedList {
         return myLinkedList1;
     }
 
+    static public ListNode insert(ListNode head, int insertVal) {
+        if (head == null) {
+            head = new ListNode(insertVal);
+            head.next = head;
+            return head;
+        }
+        ListNode curr = head;
+        int count = 0;
+        do {
+            if (insertVal >= curr.val|| count>1 && curr.val>=curr.next.val && (insertVal <= curr.val)) {
+                ListNode inserting = new ListNode(insertVal);
+                inserting.next = curr.next;
+                curr.next = inserting;
+                return head;
+            }
+            curr = curr.next;
+            if (curr == head) {
+                count++;
+            }
+        } while (count<3);
+        return head;
+    }
+
     static public ListNode flatten(ListNode head) {
         ListNode curr = head;
         while (curr != null) {
@@ -53,6 +76,17 @@ public class MyLinkedList {
     }
     public static void main(String[] args) {
 
+        MyLinkedList myLinkedList1 = new MyLinkedList();
+        myLinkedList1.addAtTail(1);
+        myLinkedList1.head.next = myLinkedList1.head;
+        ListNode result = insert(myLinkedList1.head, 0);
+        while (result.next!=null) {
+            System.out.println(result.val);
+            result = result.next;
+        }
+
+        /*
+
 //        Integer arr[] = {1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12};
         Integer arr[] = {1,2,null,3};
 //        Output: [1,2,3,7,8,11,12,9,10,4,5,6];
@@ -72,7 +106,7 @@ public class MyLinkedList {
         while (result!=null) {
             System.out.println(result.val);
             result = result.prev;
-        }
+        }*/
 
 //        for (int i = 0; i < l1.length; i++) {
 //            myLinkedList1.addAtTail(l1[i]);
