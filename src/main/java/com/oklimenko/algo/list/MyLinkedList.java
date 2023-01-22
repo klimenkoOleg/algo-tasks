@@ -48,6 +48,7 @@ public class MyLinkedList {
             }
         } while (count<3);
         return head;
+
     }
 
     static public ListNode flatten(ListNode head) {
